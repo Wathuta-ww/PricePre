@@ -1,5 +1,5 @@
 import streamlit as st
-st.set_page_config(page_title="Housing Price Prediction", page_icon=":house:")
+st.set_page_config(page_title="Housing Prices Prediction", page_icon=":house:")
 import pandas as pd
 import numpy as np
 import pickle
@@ -9,7 +9,8 @@ import geopy.distance
 from streamlit_folium import st_folium
 from utils.combiner import CombinedAttributesAdder
 
-# Functions
+## -----------------------------------------------------------------------------------------##
+## Functions
 
 def _max_width_(prcnt_width:int = 70):
     max_width_str = f"max-width: {prcnt_width}%;"
@@ -121,20 +122,20 @@ def create_map():
     map_ca = folium.Map(location=[37.7749, -122.4194], zoom_start=6, min_lat=min_lat, min_lon=min_lon, max_lat=max_lat, max_lon=max_lon, no_wrap=True, max_bounds=True)
     return map_ca
 
-
+## -------------------------------------------------------------------------------------------------------##
 ## Webpage
 
 _max_width_(70)
-st.title("House Price Prediction")
+st.title("California Housing Prices Prediction")
 st.markdown("""
-##### A web application for predicting House Prices.
-
- This app uses machine learning to predict house prices by loading a pre-trained linear regression model. 
- It takes various features as input, including the number of rooms, bedrooms, neighborhood population, and proximity to the nearest city. 
- The app preprocesses these inputs, combining and enriching features like city distance for improved predictions.
-
+##### A web application for predicting California Housing Prices.
+ 
+This app uses machine learning to predict the price of the house. 
+It loads a pre-trained linear regression model, which takes as input various features of the house, 
+such as the number of rooms, the number of bedrooms, the population of the house's neighborhood, and the distance to the nearest city. 
+The app preprocesses the input data by combining some of the features and adding new features, such as the distance to the nearest city.
 """)
-
+st.markdown("**:book: [GitHub repository](https://github.com/matheuscamposmt/housing_prices_app)** | :heart: **My profile:** [@matheuscamposmt](https://github.com/matheuscamposmt)")
 
 data = pd.read_csv('housing.csv')
 max_values = data.select_dtypes(include=np.number).max()
@@ -149,7 +150,7 @@ rand_vals = st.session_state['random_values']
 # layout and input data
 col1, col2 = st.columns([1, 2], gap='large')
 with col1:
-    st.header("Enter the attributes of the house.")
+    st.header("Enter the attributes of the housing.")
     subcol1, subcol2 = st.columns(2)
     with subcol1:
         housing_median_age = np.nan
@@ -174,13 +175,13 @@ with col1:
 
     with subcol2:
         households = st.number_input(
-            "Households on a block",
+            "Households for a block",
             value=rand_vals['random_households'], 
             min_value=int(min_values['households']), 
             max_value=int(max_values['households']), step=5)
         
         median_income = st.slider(
-            "Median income within a block (in thousands of U.S. dollars ($))",
+            "Median income within a block (in thousands of U.S. dollars)",
             value=2.0,
             min_value=float(min_values['median_income']), 
             max_value=float(max_values['median_income']), step=0.5)
@@ -193,7 +194,7 @@ with col1:
         
     address = st.text_input("Address", value=rand_vals['random_address'])
 
-    st.caption("Mark the address in the map using the button below.")
+    st.caption("Press the button below to mark the address in the map.")
     locate_button = st.button("Locate")
 
     if address and locate_button and (not address in get_markers_addresses()):
@@ -288,11 +289,10 @@ with col2:
         st.session_state['fg'].add_child(line)
 
 
-    clean_button = st.button("Remove markers")
+    clean_button = st.button("Clear markers")
     if clean_button:
         st.session_state['fg'] = clear_markers()
 
     st_data = st_folium(map_ca, width=1200, height=800, feature_group_to_add=st.session_state['fg'])
 
     
-
