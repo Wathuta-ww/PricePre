@@ -74,7 +74,7 @@ def load_combiner():
         return CombinedAttributesAdder()
 
 geolocator = initialize_nominatim()
-loaded_model = load_model('model/linear_reg_model.pkl')
+loaded_model = load_model('modl/linear_reg_model.pkl')
 combiner = load_combiner()
 
 def get_location(address: str):
