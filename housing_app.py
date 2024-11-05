@@ -12,6 +12,8 @@ from utils.combiner import CombinedAttributesAdder
 ## -----------------------------------------------------------------------------------------##
 ## Functions
 
+st.set_page_config(layout="wide")
+
 def _max_width_(prcnt_width:int = 70):
     max_width_str = f"max-width: {prcnt_width}%;"
     st.markdown(f""" 
