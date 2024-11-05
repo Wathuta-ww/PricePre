@@ -1,5 +1,5 @@
 import streamlit as st
-st.set_page_config(page_title="Housing Prices Prediction", page_icon=":building:")
+st.set_page_config(page_title="Housing Prices Prediction", page_icon=":city:")
 import pandas as pd
 import numpy as np
 import pickle
