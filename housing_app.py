@@ -1,5 +1,5 @@
 import streamlit as st
-st.set_page_config(page_title="Housing Prices Prediction", page_icon=":house_buildings:")
+st.set_page_config(layout="wide", page_title="Housing Prices Prediction", page_icon=":house_buildings:")
 import pandas as pd
 import numpy as np
 import pickle
@@ -11,8 +11,6 @@ from utils.combiner import CombinedAttributesAdder
 
 ## -----------------------------------------------------------------------------------------##
 ## Functions
-
-st.set_page_config(layout="wide")
 
 def _max_width_(prcnt_width:int = 70):
     max_width_str = f"max-width: {prcnt_width}%;"
