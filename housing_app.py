@@ -16,7 +16,7 @@ def _max_width_(prcnt_width:int = 70):
     max_width_str = f"max-width: {prcnt_width}%;"
     st.markdown(f""" 
                 <style> 
-                .stApp {background-color: #f0f2f6;}
+                
                 .appview-container .main .block-container{{{max_width_str}}}
                 </style>    
                 """, 
